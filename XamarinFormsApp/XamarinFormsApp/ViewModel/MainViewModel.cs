@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Composition;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,18 +15,29 @@ namespace XamarinFormsApp.ViewModel
     {
         public RelayCommand PushBttnCommand { get; private set; }
 
-        private string _message="Hello MEF/MVVM on Xamarin :)";
+        private string _message = "Hello MEF/MVVM on Xamarin :)";
         public string Message
         {
             get { return _message; }
             set { Set(() => Message, ref _message, value); }
         }
 
-        private string _inputText="Input text"; 
+        private byte refCount;
+        private string _inputText = "Input text";
         public string InputText
         {
-            get { return _inputText; }
-            set { Set(() => InputText, ref _inputText, value); }
+            get
+            {
+                refCount++;
+                Debug.WriteLine("hit!.." + refCount);
+                return _inputText;
+            }
+            set
+            {
+                refCount = 0;
+                Debug.WriteLine("Set!");
+                Set(() => InputText, ref _inputText, value);
+            }
         }
 
         public MainViewModel()
