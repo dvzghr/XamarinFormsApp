@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Views;
+using XamarinFormsApp.Service;
 
 namespace XamarinFormsApp.ViewModel
 {
@@ -14,16 +17,24 @@ namespace XamarinFormsApp.ViewModel
     public class MainViewModel : ViewModelBase
     {
         public RelayCommand PushBttnCommand { get; private set; }
-
-        private string _message = "Hello MEF/MVVM on Xamarin :)";
+        
         public string Message
         {
             get { return _message; }
             set { Set(() => Message, ref _message, value); }
         }
 
+        public string MessageDetail
+        {
+            get { return _messageDetail; }
+            set { Set(() => MessageDetail, ref _messageDetail, value); }
+        }
+
         private byte refCount;
+        private string _message = "Hello MEF/MVVM on Xamarin :)";
         private string _inputText = "Input text";
+        private string _messageDetail = "This is a very detailed message :)";
+
         public string InputText
         {
             get
@@ -42,7 +53,13 @@ namespace XamarinFormsApp.ViewModel
 
         public MainViewModel()
         {
-            PushBttnCommand = new RelayCommand(ChangeText);
+            //PushBttnCommand = new RelayCommand(ChangeText);
+            PushBttnCommand = new RelayCommand(NavigateToDetails);
+        }
+
+        private void NavigateToDetails()
+        {
+            Messenger.Default.Send("Navigation to detailed message!");
         }
 
         private void ChangeText()

@@ -6,8 +6,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Views;
 using Xamarin.Forms;
+using XamarinFormsApp.Service;
 using XamarinFormsApp.ViewModel;
 
 namespace XamarinFormsApp
@@ -18,16 +21,27 @@ namespace XamarinFormsApp
         public ViewModelLocator Locator { get; set; }
 
         [Import]
-        public MainPage MPage
+        public MainPage MPage //{ get; set; }
         {
             get { return MainPage as MainPage; }
-            set { MainPage = value; }
+            set { MainPage = new NavigationPage(value); }
         }
+
+        [Import]
+        public SecondPage SPage { get; set; }
 
         public App()
         {
             // The root page of your application
-            //MainPage = new XamarinFormsApp.MainPage();
+            //MainPage = new MainPage();
+            //MainPage = new NavigationPage(MPage);
+
+            Messenger.Default.Register<string>(this, OnMessageReceived);
+        }
+
+        private void OnMessageReceived(string msg)
+        {
+            MainPage.Navigation.PushAsync(SPage);
         }
 
         protected override void OnStart()
@@ -44,7 +58,8 @@ namespace XamarinFormsApp
         [OnImportsSatisfied]
         public void OnImportsSatisfied()
         {
-            MainPage.BindingContext = Locator.MainVM;
+            //MainPage = new NavigationPage(MPage);
+            MainPage.BindingContext = Locator;
         }
 
         protected override void OnSleep()
