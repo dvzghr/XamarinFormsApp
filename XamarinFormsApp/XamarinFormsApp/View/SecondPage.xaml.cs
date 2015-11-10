@@ -15,7 +15,7 @@ namespace XamarinFormsApp
         public SecondPage()
         {
             InitializeComponent();
-            Messenger.Default.Register<string>(this,(msg) => DisplayAlert("Alert",msg,"OK"));
+            Messenger.Default.Register<string>(this,msg => DisplayAlert("Alert",msg,"OK"));
         }
 
     }
