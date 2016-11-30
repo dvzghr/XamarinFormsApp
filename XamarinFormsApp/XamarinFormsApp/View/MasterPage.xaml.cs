@@ -5,12 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XamarinFormsApp.ViewModel
+using Xamarin.Forms;
+
+namespace XamarinFormsApp.View
 {
     [Export]
-    public class ViewModelLocator
+    public partial class MasterPage
     {
-        [Import]
-        public MainViewModel MainVm { get; set; }
+        public MasterPage()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Composition;
 using GalaSoft.MvvmLight.Messaging;
 using Xamarin.Forms;
+using XamarinFormsApp.Model;
 
-namespace XamarinFormsApp
+namespace XamarinFormsApp.View
 {
     [Export]
     public partial class SecondPage : ContentPage
@@ -15,7 +11,7 @@ namespace XamarinFormsApp
         public SecondPage()
         {
             InitializeComponent();
-            Messenger.Default.Register<string>(this,msg => DisplayAlert("Alert",msg,"OK"));
+            Messenger.Default.Register<Message>(this,msg => DisplayAlert("Alert",msg.Text,"OK"));
         }
 
     }

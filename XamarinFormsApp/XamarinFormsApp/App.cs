@@ -10,7 +10,9 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Views;
 using Xamarin.Forms;
+using XamarinFormsApp.Model;
 using XamarinFormsApp.Service;
+using XamarinFormsApp.View;
 using XamarinFormsApp.ViewModel;
 
 namespace XamarinFormsApp
@@ -21,14 +23,24 @@ namespace XamarinFormsApp
         public ViewModelLocator Locator { get; set; }
 
         [Import]
-        public MainPage MPage //{ get; set; }
-        {
-            get { return MainPage as MainPage; }
-            set { MainPage = new NavigationPage(value); }
-        }
+        public RootPage RootPage { get; set; }
+        //{
+        //    get { return MainPage as MainPage; }
+        //    set { MainPage = new NavigationPage(value); }
+        //}
 
         [Import]
-        public SecondPage SPage { get; set; }
+        public FirstPage FirstPage { get; set; }
+
+        [Import]
+        public SecondPage SecondPage { get; set; }
+
+        [Import]
+        public MasterPage MasterPage { get; set; }
+        //{
+        //    get { return MainPage as MasterPage; }
+        //    set { MainPage = value; }
+        //}
 
         public App()
         {
@@ -36,17 +48,29 @@ namespace XamarinFormsApp
             //MainPage = new MainPage();
             //MainPage = new NavigationPage(MPage);
 
-            Messenger.Default.Register<string>(this, OnMessageReceived);
+            Messenger.Default.Register<Message>(this, OnMessageReceived);
         }
 
-        private void OnMessageReceived(string msg)
+        private void OnMessageReceived(Message msg)
         {
-            MainPage.Navigation.PushAsync(SPage);
+            if (msg.Type == 0)
+                MainPage.Navigation.PushAsync(MasterPage);
+
+            if (msg.Type == 1)
+                MainPage.Navigation.PushAsync(FirstPage);
+
+            if (msg.Type == 2)
+                MainPage.Navigation.PushAsync(SecondPage);
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
+            MefImport();
+        }
+
+        private void MefImport()
+        {
             var configuration = new ContainerConfiguration().WithAssembly(typeof(App).GetTypeInfo().Assembly);
 
             using (var container = configuration.CreateContainer())
@@ -58,7 +82,7 @@ namespace XamarinFormsApp
         [OnImportsSatisfied]
         public void OnImportsSatisfied()
         {
-            //MainPage = new NavigationPage(MPage);
+            MainPage = new NavigationPage(RootPage);
             MainPage.BindingContext = Locator;
         }
 
