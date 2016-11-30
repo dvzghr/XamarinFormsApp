@@ -4,7 +4,7 @@
              xmlns:view="clr-namespace:XamarinFormsApp.View;assembly=XamarinFormsApp"
              x:Class="XamarinFormsApp.View.MasterPage"
              Title="Welcome to the Master Page!">
-  <MasterDetailPage.Master>
+  <!--<MasterDetailPage.Master>
     <view:MenuPage />
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
@@ -13,5 +13,5 @@
         <view:DetailPage />
       </x:Arguments>
     </NavigationPage>
-  </MasterDetailPage.Detail>
+  </MasterDetailPage.Detail>-->
 </MasterDetailPage>

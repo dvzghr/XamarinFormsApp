@@ -45,8 +45,9 @@ namespace XamarinFormsApp
         public App()
         {
             // The root page of your application
-            //MainPage = new MainPage();
             //MainPage = new NavigationPage(MPage);
+            MainPage = new MasterPage();
+            MainPage.BindingContext = new ViewModelLocator();
 
             Messenger.Default.Register<Message>(this, OnMessageReceived);
         }
@@ -66,7 +67,7 @@ namespace XamarinFormsApp
         protected override void OnStart()
         {
             // Handle when your app starts
-            MefImport();
+            //MefImport();
         }
 
         private void MefImport()
@@ -82,7 +83,8 @@ namespace XamarinFormsApp
         [OnImportsSatisfied]
         public void OnImportsSatisfied()
         {
-            MainPage = new NavigationPage(RootPage);
+            //MainPage = new NavigationPage(RootPage);
+            MainPage = MasterPage;
             MainPage.BindingContext = Locator;
         }
 

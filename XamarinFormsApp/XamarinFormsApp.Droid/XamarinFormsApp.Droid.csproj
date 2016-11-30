@@ -141,6 +141,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\drawable\hamburger.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\hamburger.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\hamburger.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\hamburger.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamarinFormsApp\XamarinFormsApp.csproj">
