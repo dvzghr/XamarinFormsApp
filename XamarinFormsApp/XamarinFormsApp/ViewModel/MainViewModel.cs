@@ -9,6 +9,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Views;
+using XamarinFormsApp.Model;
 using XamarinFormsApp.Service;
 
 namespace XamarinFormsApp.ViewModel
@@ -16,14 +17,45 @@ namespace XamarinFormsApp.ViewModel
     [Export]
     public class MainViewModel : ViewModelBase
     {
-        public RelayCommand PushBttnCommand { get; private set; }
-        
-        public string Message
+        public MainViewModel()
         {
-            get { return _message; }
-            set { Set(() => Message, ref _message, value); }
+            //PushBttnCommand = new RelayCommand(ChangeText);
+            PushFirstBttnCommand = new RelayCommand(NavigateToFirstPage);
+            PushSecondBttnCommand = new RelayCommand(NavigateToSecondPage);
+            PushMasterBttnCommand = new RelayCommand(NavigateToMaster);
         }
 
+
+        public RelayCommand PushFirstBttnCommand { get; private set; }
+        public RelayCommand PushSecondBttnCommand { get; private set; }
+        public RelayCommand PushMasterBttnCommand { get; private set; }
+
+
+        private string _msgRoot = "Hello MEF/MVVM on Xamarin :)";
+        public string MessageRoot
+        {
+            get { return _msgRoot; }
+            set { Set(() => MessageRoot, ref _msgRoot, value); }
+        }
+
+
+        private string _msgFirst = "This is the FIRST message!";
+        public string MessageFirst
+        {
+            get { return _msgFirst; }
+            set { Set(() => MessageFirst, ref _msgFirst, value); }
+        }
+
+
+        private string _msgSecond = "Second message just arrived!";
+        public string MessageSecond
+        {
+            get { return _msgSecond; }
+            set { Set(() => MessageSecond, ref _msgSecond, value); }
+        }
+
+
+        private string _messageDetail = "This is a very detailed message :)";
         public string MessageDetail
         {
             get { return _messageDetail; }
@@ -31,10 +63,7 @@ namespace XamarinFormsApp.ViewModel
         }
 
         private byte refCount;
-        private string _message = "Hello MEF/MVVM on Xamarin :)";
         private string _inputText = "Input text";
-        private string _messageDetail = "This is a very detailed message :)";
-
         public string InputText
         {
             get
@@ -51,16 +80,23 @@ namespace XamarinFormsApp.ViewModel
             }
         }
 
-        public MainViewModel()
+
+        private void NavigateToFirstPage()
         {
-            //PushBttnCommand = new RelayCommand(ChangeText);
-            PushBttnCommand = new RelayCommand(NavigateToDetails);
+            Messenger.Default.Send(new Message { Type = 1, Text = "Navigation to first page!" });
         }
 
-        private void NavigateToDetails()
+        private void NavigateToSecondPage()
         {
-            Messenger.Default.Send("Navigation to detailed message!");
+            Messenger.Default.Send(new Message { Type = 2, Text = "Navigation to second page!" });
         }
+
+        private void NavigateToMaster()
+        {
+            Messenger.Default.Send(new Message { Type = 0, Text = "Navigation to master/detail!" });
+        }
+
+
 
         private void ChangeText()
         {

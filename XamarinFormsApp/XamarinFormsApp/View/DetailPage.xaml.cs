@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace XamarinFormsApp
+namespace XamarinFormsApp.View
 {
     [Export]
-    public partial class MainPage : ContentPage
+    public partial class DetailPage : ContentPage
     {
-        public MainPage()
+        public DetailPage()
         {
             InitializeComponent();
         }

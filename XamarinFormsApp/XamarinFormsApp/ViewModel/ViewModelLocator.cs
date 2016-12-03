@@ -10,10 +10,7 @@ namespace XamarinFormsApp.ViewModel
     [Export]
     public class ViewModelLocator
     {
-        public string FirstPage = "FirstPage";
-        public string SecondPage = "SecondPage";
-
         [Import]
-        public MainViewModel MainVM { get; set; }
+        public MainViewModel MainVm { get; set; }
     }
 }
