@@ -46,8 +46,11 @@ namespace XamarinFormsApp
         {
             // The root page of your application
             //MainPage = new NavigationPage(MPage);
-            MainPage = new MasterPage();
-            MainPage.BindingContext = new ViewModelLocator();
+
+            MainPage = new QuotesPage {BindingContext = new QuotesViewModel()};
+
+            //MainPage = new MasterPage();
+            //MainPage.BindingContext = new ViewModelLocator();
 
             Messenger.Default.Register<Message>(this, OnMessageReceived);
         }
