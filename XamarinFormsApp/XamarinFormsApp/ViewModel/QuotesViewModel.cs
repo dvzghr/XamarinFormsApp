@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -31,6 +32,7 @@ namespace XamarinFormsApp.ViewModel
 
 
         private Quote _quote;
+
         public Quote Quote
         {
             get { return _quote; }
@@ -48,7 +50,29 @@ namespace XamarinFormsApp.ViewModel
 
         private async Task GetQuote()
         {
-            Quote = await _quotesServices.GetQuote();
+            if (IsLoading) return;
+
+            Exception error = null;
+            try
+            {
+                IsLoading = true;
+                GetQuoteCommand.ChangeCanExecute();
+                Quote = await _quotesServices.GetQuote();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error: {ex.Message}");
+                error = ex;
+            }
+            finally
+            {
+                IsLoading = false;
+                GetQuoteCommand.ChangeCanExecute();
+            }
+
+            if (error != null)
+                await Application.Current.MainPage.DisplayAlert("Error!", error.Message, "OK");
+
         }
     }
 }

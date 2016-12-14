@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="BoolNegateConverter.cs" />
     <Compile Include="Model\Message.cs" />
     <Compile Include="Model\Quote.cs" />
     <Compile Include="Properties\Annotations.cs" />
