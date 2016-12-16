@@ -47,7 +47,8 @@ namespace XamarinFormsApp
             // The root page of your application
             //MainPage = new NavigationPage(MPage);
 
-            MainPage = new QuotesPage {BindingContext = new QuotesViewModel()};
+            //MainPage = new QuotesPage {BindingContext = new QuotesViewModel()};
+            MainPage = new AbsoluteLayoutSecondPage();
 
             //MainPage = new MasterPage();
             //MainPage.BindingContext = new ViewModelLocator();
