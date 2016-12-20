@@ -48,7 +48,7 @@ namespace XamarinFormsApp
             //MainPage = new NavigationPage(MPage);
 
             //MainPage = new QuotesPage {BindingContext = new QuotesViewModel()};
-            MainPage = new AbsoluteLayoutSecondPage();
+            MainPage = new RelativeLayoutPage();
 
             //MainPage = new MasterPage();
             //MainPage.BindingContext = new ViewModelLocator();
