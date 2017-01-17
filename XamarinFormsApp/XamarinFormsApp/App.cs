@@ -44,14 +44,20 @@ namespace XamarinFormsApp
 
         public App()
         {
+            Locator = new ViewModelLocator { MainVm = new MainViewModel() };
+            RootPage = new RootPage();
+
             // The root page of your application
             //MainPage = new NavigationPage(MPage);
 
             //MainPage = new QuotesPage {BindingContext = new QuotesViewModel()};
-            MainPage = new RelativeLayoutPage();
+            //MainPage = new RelativeLayoutPage();
 
-            //MainPage = new MasterPage();
-            //MainPage.BindingContext = new ViewModelLocator();
+            MainPage = new MasterPage();
+
+            //MainPage = new NavigationPage(RootPage);
+
+            MainPage.BindingContext = Locator;
 
             Messenger.Default.Register<Message>(this, OnMessageReceived);
         }
@@ -59,13 +65,13 @@ namespace XamarinFormsApp
         private void OnMessageReceived(Message msg)
         {
             if (msg.Type == 0)
-                MainPage.Navigation.PushAsync(MasterPage);
+                MainPage.Navigation.PushAsync(MasterPage ?? new MasterPage());
 
             if (msg.Type == 1)
-                MainPage.Navigation.PushAsync(FirstPage);
+                MainPage.Navigation.PushAsync(FirstPage ?? new FirstPage());
 
             if (msg.Type == 2)
-                MainPage.Navigation.PushAsync(SecondPage);
+                MainPage.Navigation.PushAsync(SecondPage ?? new SecondPage());
         }
 
         protected override void OnStart()

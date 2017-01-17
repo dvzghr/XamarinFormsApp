@@ -6,7 +6,7 @@
              Icon="hamburger.png"
              BindingContext="{Binding Path=MainVm}">
     <StackLayout VerticalOptions="FillAndExpand">
-      <Label Text="{Binding MessageMain}" VerticalOptions="Center" HorizontalOptions="Start" />
+      <Label Text="{Binding MessageRoot}" VerticalOptions="Center" HorizontalOptions="Start" />
       <ListView>
         <ListView.ItemTemplate>
           <DataTemplate>
