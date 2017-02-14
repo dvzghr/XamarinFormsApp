@@ -44,16 +44,23 @@ namespace XamarinFormsApp
 
         public App()
         {
-            Locator = new ViewModelLocator { MainVm = new MainViewModel() };
+            Locator = new ViewModelLocator
+                          {
+                              MainVm = new MainViewModel(),
+                              QuotesVm = new QuotesViewModel()
+                          };
             RootPage = new RootPage();
 
             // The root page of your application
             //MainPage = new NavigationPage(MPage);
 
-            //MainPage = new QuotesPage {BindingContext = new QuotesViewModel()};
+            MainPage = new QuotesPage();
+
+
+
             //MainPage = new RelativeLayoutPage();
 
-            MainPage = new MasterPage();
+            //MainPage = new MasterPage();
 
             //MainPage = new NavigationPage(RootPage);
 
@@ -94,8 +101,8 @@ namespace XamarinFormsApp
         public void OnImportsSatisfied()
         {
             //MainPage = new NavigationPage(RootPage);
-            MainPage = MasterPage;
-            MainPage.BindingContext = Locator;
+            //MainPage = MasterPage;
+            //MainPage.BindingContext = Locator;
         }
 
         protected override void OnSleep()

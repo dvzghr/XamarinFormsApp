@@ -12,5 +12,7 @@ namespace XamarinFormsApp.ViewModel
     {
         [Import]
         public MainViewModel MainVm { get; set; }
+
+        public QuotesViewModel QuotesVm { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using XamarinFormsApp.Model;
 
 namespace XamarinFormsApp.Service
 {
-    class QuotesServices
+    public class QuotesServices
     {
         public async Task<Quote> GetQuote()
         {

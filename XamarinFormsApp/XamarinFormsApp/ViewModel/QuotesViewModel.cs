@@ -14,15 +14,11 @@ using XamarinFormsApp.Service;
 
 namespace XamarinFormsApp.ViewModel
 {
-    class QuotesViewModel : BaseViewModel
+    public class QuotesViewModel : BaseViewModel
     {
         private readonly QuotesServices _quotesServices;
 
-
-        public QuotesViewModel() : this(new QuotesServices())
-        {
-
-        }
+        public QuotesViewModel() : this(new QuotesServices()) { }
 
         public QuotesViewModel(QuotesServices quotesServices)
         {
@@ -30,23 +26,21 @@ namespace XamarinFormsApp.ViewModel
             GetQuoteCommand = new Command(async () => await GetQuote(), () => !IsLoading);
         }
 
-
-        private Quote _quote;
-
+        private Quote quote;
         public Quote Quote
         {
-            get { return _quote; }
+            get { return this.quote; }
             set
             {
-                if (value == _quote) return;
-                _quote = value;
+                if (value == this.quote) return;
+                this.quote = value;
                 RaisePropertyChanged();
             }
         }
 
+        public string Title => "Quotes";
 
         public Command GetQuoteCommand { get; set; }
-
 
         private async Task GetQuote()
         {
@@ -70,9 +64,7 @@ namespace XamarinFormsApp.ViewModel
                 GetQuoteCommand.ChangeCanExecute();
             }
 
-            if (error != null)
-                await Application.Current.MainPage.DisplayAlert("Error!", error.Message, "OK");
-
+            if (error != null) await Application.Current.MainPage.DisplayAlert("Error!", error.Message, "OK");
         }
     }
 }
