@@ -55,6 +55,10 @@ namespace Test.RestClient
                 var json = await client.GetStringAsync(uri);
                 var quote = await Task.Run(() => JsonConvert.DeserializeObject<Quote>(json));
 
+                //HttpContentExtensions - System.Net.Http.Formatting
+                var response = await client.GetAsync(uri);
+                var quote2 = await response.Content.ReadAsAsync<Quote>();
+
                 return quote;
             }
         }
