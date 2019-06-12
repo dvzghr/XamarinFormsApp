@@ -17,6 +17,8 @@ namespace Test.RestClient
 {
     class Program
     {
+        private const string url = "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies";
+
         static void Main(string[] args)
         {
             Console.WriteLine("Fetching quotes...");
@@ -45,27 +47,26 @@ namespace Test.RestClient
 
         private static async Task<Quote> GetQuote()
         {
-            var uri = new Uri("https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies");
+            var uri = new Uri(url);
             using (var client = new HttpClient())
             {
-                //client.BaseAddress = new Uri("https://andruxnet-random-famous-quotes.p.mashape.com/");
                 client.DefaultRequestHeaders.Add("X-Mashape-Key", "SVRrKUoLRBmshZ7IANqnF4kmkxt7p1kYcMNjsnWxDGnoyCOUwh");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var json = await client.GetStringAsync(uri);
-                var quote = await Task.Run(() => JsonConvert.DeserializeObject<Quote>(json));
+                var quote = await Task.Run(() => JsonConvert.DeserializeObject<Quote[]>(json));
 
                 //HttpContentExtensions - System.Net.Http.Formatting
-                var response = await client.GetAsync(uri);
-                var quote2 = await response.Content.ReadAsAsync<Quote>();
+                //var response = await client.GetAsync(uri);
+                //var quote2 = await response.Content.ReadAsAsync<Quote>();
 
-                return quote;
+                return quote.FirstOrDefault();
             }
         }
 
         private static async Task<Quote> GetQuoteRestSharp()
         {
-            var uri = new Uri("https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies");
+            var uri = new Uri(url);
             using (var client = new RestSharp.Portable.HttpClient.RestClient(uri))
             {
                 var request = new RestRequest(Method.POST);
@@ -73,24 +74,23 @@ namespace Test.RestClient
                 //request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
                 request.AddHeader("Accept", "application/json");
 
-                var response = await client.Execute<Quote>(request);
-                var quote = await Task.Run(() => new JsonDeserializer().Deserialize<Quote>(response));
-                return quote;
+                var response = await client.Execute <Quote[]>(request);
+                return response.Data.FirstOrDefault();
             }
         }
 
         private static async Task<Quote> GetQuoteUniRest()
         {
             var response = await Unirest
-                .post("https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies")
+                .post(url)
                 .header("X-Mashape-Key", "SVRrKUoLRBmshZ7IANqnF4kmkxt7p1kYcMNjsnWxDGnoyCOUwh")
                 //.header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Accept", "application/json")
                 .asJsonAsync<string>();
 
-            var quote = await Task.Run(() => JsonConvert.DeserializeObject<Quote>(response.Body));
+            var quote = await Task.Run(() => JsonConvert.DeserializeObject<Quote[]>(response.Body));
 
-            return quote;
+            return quote.FirstOrDefault();
         }
     }
 }

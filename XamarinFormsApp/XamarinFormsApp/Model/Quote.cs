@@ -11,7 +11,9 @@ namespace XamarinFormsApp.Model
     {
         [JsonProperty("quote")]
         public string Line { get; set; }
+        [JsonProperty("author")]
         public string Author { get; set; }
+        [JsonProperty("category")]
         public string Category { get; set; }    
     }
 }

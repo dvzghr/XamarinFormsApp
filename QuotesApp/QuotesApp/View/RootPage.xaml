@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuotesApp.View.RootPage"
+             BindingContext="{Binding Path=MainVm}">
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Spacing="15">
+      <Label x:Name="lblName" Text="{Binding MessageRoot}"></Label>
+      <Entry x:Name="txtName" Text="{Binding InputText}"></Entry>
+      <Button x:Name="btnFirst" Text="Navigate (first)" Command="{Binding PushFirstBttnCommand}"></Button>
+      <Button x:Name="btnSecond" Text="Navigate (second)" Command="{Binding PushSecondBttnCommand}"></Button>
+      <Button x:Name="btnMaster" Text="Navigate (master/detail)" Command="{Binding PushMasterBttnCommand}"></Button>
+    </StackLayout>
+</ContentPage>

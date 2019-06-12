@@ -23,9 +23,9 @@ namespace XamarinFormsApp.Service
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var json = await client.GetStringAsync(uri);
-                var quote = await Task.Run(() => JsonConvert.DeserializeObject<Quote>(json));
+                var quote = await Task.Run(() => JsonConvert.DeserializeObject<Quote[]>(json));
 
-                return quote;
+                return quote.FirstOrDefault();
             }
         }
     }
